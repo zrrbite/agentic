@@ -196,20 +196,18 @@ TRL's `SFTTrainer` expects either a single `text` field with the full conversati
 
 
 ```python
-dataset = Dataset.from_list([
-    {
-        "messages": [
-            {"role": "user", "content": q},
-            {"role": "assistant", "content": a},
-        ]
-    }
-    for q, a in HAIKU_DATASET
-])
+def format_for_sft(q, a):
+    messages = [
+        {"role": "user",      "content": q},
+        {"role": "assistant", "content": a},
+    ]
+    return {"text": tokenizer.apply_chat_template(messages, tokenize=False)}
 
-print(f"{len(dataset)} training examples in `messages` format")
+dataset = Dataset.from_list([format_for_sft(q, a) for q, a in HAIKU_DATASET])
+print(f"{len(dataset)} training examples")
 print()
-print("First example (rendered with chat template, for inspection only):")
-print(tokenizer.apply_chat_template(dataset[0]["messages"], tokenize=False))
+print("First formatted example:")
+print(dataset[0]["text"])
 ```
 
 ## QLoRA configuration
@@ -235,39 +233,38 @@ peft_config = LoraConfig(
 
 ## Train
 
-20 epochs over 60 examples is overkill — earlier runs of this notebook produced 'useruseruser...' garbage from the model overfitting on chat-template role tags. Two settings keep that from happening:
+Settings that prevent the catastrophic over-fit (the 'useruseruser...' loop) we hit on the first run:
 
-- `num_train_epochs=5` — plenty for format learning, not enough to overfit role tags
-- `assistant_only_loss=True` — masks the user prompt from the loss so the model isn't trying to predict user turns. Crucial. Available in TRL >= 0.12
+- `num_train_epochs=5` — enough for format learning, not enough to memorise role tags
+- `DataCollatorForCompletionOnlyLM` — masks the user prompt from the loss so the model only learns from the assistant's response. Works for any chat-templated model; we just give it the assistant role marker (`<|im_start|>assistant\n` for SmolLM's ChatML template)
 
 ~2-3 min on a T4.
 
 
 ```python
-# Build SFTConfig. assistant_only_loss masks the user portion from loss
-# (was added to TRL 0.12+). Try with it, fall back if older.
-def make_config(**extra):
-    return SFTConfig(
-        output_dir="./haiku-sft",
-        num_train_epochs=5,                  # was 20 — fewer epochs = less overfit
-        per_device_train_batch_size=2,
-        gradient_accumulation_steps=4,
-        learning_rate=1e-4,                  # was 2e-4 — gentler updates
-        warmup_ratio=0.1,
-        bf16=True,
-        logging_steps=10,
-        save_strategy="no",
-        report_to="none",
-        **extra,
-    )
+from trl import DataCollatorForCompletionOnlyLM
 
-try:
-    training_args = make_config(assistant_only_loss=True)
-    print("Using assistant_only_loss=True (TRL >= 0.12)")
-except TypeError:
-    training_args = make_config()
-    print("WARNING: TRL too old for assistant_only_loss; loss includes user prompt.")
-    print("         Output quality will be worse. Upgrade TRL: pip install -U trl")
+# Mask everything before this string from the loss — model only learns from
+# what comes AFTER the assistant role marker. Works for any chat-templated
+# model; just need the right marker string for SmolLM's ChatML template.
+RESPONSE_TEMPLATE = "<|im_start|>assistant\n"
+collator = DataCollatorForCompletionOnlyLM(
+    response_template=RESPONSE_TEMPLATE,
+    tokenizer=tokenizer,
+)
+
+training_args = SFTConfig(
+    output_dir="./haiku-sft",
+    num_train_epochs=5,
+    per_device_train_batch_size=2,
+    gradient_accumulation_steps=4,
+    learning_rate=1e-4,
+    warmup_ratio=0.1,
+    bf16=True,
+    logging_steps=10,
+    save_strategy="no",
+    report_to="none",
+)
 
 # Newer TRL (>= 0.13) prefers processing_class over the older tokenizer kwarg.
 try:
@@ -277,6 +274,7 @@ try:
         train_dataset=dataset,
         peft_config=peft_config,
         processing_class=tokenizer,
+        data_collator=collator,
     )
 except TypeError:
     trainer = SFTTrainer(
@@ -285,6 +283,7 @@ except TypeError:
         train_dataset=dataset,
         peft_config=peft_config,
         tokenizer=tokenizer,
+        data_collator=collator,
     )
 
 trainer.train()
