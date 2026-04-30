@@ -30,25 +30,35 @@ If you've never used a Jupyter notebook → **read [`NOTEBOOKS.md`](NOTEBOOKS.md
 
 ## Setup
 
-Python 3.10+ recommended. From the repo root:
+Python 3.10+ recommended. From this `theory/code/` directory:
 
 ```bash
-# Create a virtualenv in this folder (one-time)
+# Create a virtualenv (one-time)
 python -m venv .venv
-
-# Activate it
-.venv\Scripts\activate         # Windows (PowerShell or Git Bash)
-# source .venv/bin/activate    # macOS / Linux
-
-# Install dependencies for chapters 1-5
-pip install numpy matplotlib jupyterlab
-
-# Add for chapter 6+
-pip install torch
-
-# Add for chapter 7+
-pip install transformers datasets
 ```
+
+Then **activate it** — the command depends on your shell:
+
+| Shell | Activate command |
+|---|---|
+| **Git Bash** (Windows) | `source .venv/Scripts/activate` |
+| **PowerShell** (Windows) | `.\.venv\Scripts\Activate.ps1` |
+| **CMD** (Windows) | `.venv\Scripts\activate.bat` |
+| **bash / zsh** (macOS / Linux) | `source .venv/bin/activate` |
+
+You'll know it worked when your prompt gains a `(.venv)` prefix and `which python` (or `where python` on Windows) points inside `.venv`.
+
+Then install dependencies **with the venv active**:
+
+```bash
+pip install numpy matplotlib jupyterlab    # chapters 1-5
+pip install torch                          # chapter 6+
+pip install transformers datasets          # chapter 7+
+```
+
+> **If you forget to activate** and run `pip install` against the system Python, packages land in user-site and `jupyter lab` won't be on PATH. You'll see PATH warnings during install. Fix: activate the venv and re-run `pip install`.
+
+> **Microsoft Store Python on Windows** is sandboxed and causes friction with venvs and PATH. If you hit weird issues, install Python from [python.org](https://www.python.org/downloads/) instead — it's much smoother.
 
 ## Running a notebook
 

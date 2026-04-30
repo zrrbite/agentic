@@ -12,7 +12,9 @@ The downside: cells can be run out of order, and state from one cell leaks into 
 
 ## Installing
 
-You need Python 3.10+ and `pip`. Then:
+You need Python 3.10+ and `pip`. Best practice is to use a **virtualenv** so packages don't pollute your system Python — see [`README.md`](README.md) for the per-shell activation commands.
+
+With your venv active:
 
 ```bash
 pip install jupyterlab numpy matplotlib
@@ -25,6 +27,13 @@ jupyter lab
 ```
 
 This opens a browser tab at `http://localhost:8888`. Navigate to a `.ipynb` file and double-click to open.
+
+### Common gotcha — "jupyter: command not found"
+
+If `jupyter lab` errors out:
+- **Did you forget to activate the venv?** The prompt should have a `(.venv)` prefix. If not, `pip install` ran against your system Python and the binary isn't on PATH. Activate, then `pip install` again.
+- **Are you on the Microsoft Store Python (Windows)?** It's sandboxed and tends to cause exactly this. Install Python from [python.org](https://www.python.org/downloads/) instead.
+- **Last resort**: `python -m jupyterlab` runs the module directly, bypassing PATH.
 
 ### Alternative: VS Code or Cursor
 
