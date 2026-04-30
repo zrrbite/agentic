@@ -216,17 +216,28 @@ training_args = SFTConfig(
     logging_steps=10,
     save_strategy="no",
     report_to="none",
-    max_seq_length=256,
-    packing=False,
+    # Note: TRL >= 0.12 removed max_seq_length from SFTConfig.
+    # Our examples are short (~150 chars formatted), well below any default cap.
 )
 
-trainer = SFTTrainer(
-    model=model,
-    args=training_args,
-    train_dataset=dataset,
-    peft_config=peft_config,
-    tokenizer=tokenizer,
-)
+# Newer TRL (>= 0.13) prefers processing_class over the older tokenizer kwarg.
+# Try processing_class first; fall back for older versions.
+try:
+    trainer = SFTTrainer(
+        model=model,
+        args=training_args,
+        train_dataset=dataset,
+        peft_config=peft_config,
+        processing_class=tokenizer,
+    )
+except TypeError:
+    trainer = SFTTrainer(
+        model=model,
+        args=training_args,
+        train_dataset=dataset,
+        peft_config=peft_config,
+        tokenizer=tokenizer,
+    )
 
 trainer.train()
 ```
