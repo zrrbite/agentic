@@ -11,6 +11,10 @@ Each topic file has two sections so you can stop where you want:
 - **Intuition** — plain language, no math required. Read this first.
 - **Mechanics** — equations, details, references to papers. Skip if you only need the gist.
 
+## Code companions
+
+Each topic has (or will have) a runnable notebook or script under [`code/`](code/) that builds the math from scratch. Start with [`code/NOTEBOOKS.md`](code/NOTEBOOKS.md) if you've never used Jupyter.
+
 ## Suggested reading order
 
 1. [`neural-networks.md`](neural-networks.md) — what a network *is* before worrying about LLMs
