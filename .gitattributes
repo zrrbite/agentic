@@ -1,0 +1,10 @@
+# Default: treat as text, normalize to LF in the repo
+* text=auto eol=lf
+
+# Explicit binary types (don't ever try to normalize)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.zip binary
