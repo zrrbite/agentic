@@ -70,6 +70,21 @@ jupyter lab        # opens in browser at http://localhost:8888
 
 Navigate to a `.ipynb` file and double-click to open. Or open the `.ipynb` file directly in **VS Code** or **Cursor** — both have built-in notebook support (install the Jupyter extension when prompted).
 
+## Reading the notebooks without running them
+
+Pre-rendered markdown copies (with plots inline) live in [`snapshots/`](snapshots/). They render natively on github.com — handy for reading on a phone or sharing without the recipient running anything.
+
+Re-generate them locally with:
+
+```bash
+# from theory/code/, with the venv active
+python render-snapshots.py                # all notebooks
+python render-snapshots.py 02-*.ipynb     # one notebook
+python render-snapshots.py --no-execute   # convert without re-running
+```
+
+GitHub Actions also re-renders snapshots on every push to `main` that touches a notebook ([`.github/workflows/render-snapshots.yml`](../../.github/workflows/render-snapshots.yml)).
+
 ## Conventions for these notebooks
 
 - Each notebook starts with a markdown cell linking back to its companion theory doc
