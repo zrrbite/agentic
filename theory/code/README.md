@@ -24,7 +24,7 @@ If the math feels rusty (derivatives, chain rule, matrix calculus, cross-entropy
 | [`02-gradient-descent.ipynb`](02-gradient-descent.ipynb) | [`../gradient-descent.md`](../gradient-descent.md) | Train the MLP with numerical gradients (slow but clear) |
 | [`03-backprop.ipynb`](03-backprop.ipynb) | [`../backpropagation.md`](../backpropagation.md) | Hand-derive backprop for the MLP, gradient-check against numerical, retrain ~100× faster |
 | [`04-bpe-from-scratch.ipynb`](04-bpe-from-scratch.ipynb) | [`../tokenization.md`](../tokenization.md) | A working byte-pair encoder, train + encode/decode, compare to `tiktoken` |
-| `05-attention-by-hand.ipynb` *(planned)* | [`../transformers.md`](../transformers.md) | One self-attention layer in NumPy; visualise attention weights |
+| [`05-attention-by-hand.ipynb`](05-attention-by-hand.ipynb) | [`../transformers.md`](../transformers.md) | Self-attention + multi-head + causal mask in NumPy; visualise attention weights; show why we need positional encodings |
 | `06-mini-gpt.ipynb` *(planned)* | [`../transformers.md`](../transformers.md) | A tiny GPT in PyTorch (à la nanoGPT), trained on a small text |
 | `07-training-loop.py` *(planned)* | [`../llm-training.md`](../llm-training.md) | Pretraining loop with logging, LR schedule, gradient clipping |
 | `08-sft-and-dpo.py` *(planned)* | [`../llm-training.md`](../llm-training.md) | SFT then DPO on a toy preference set |
