@@ -80,7 +80,7 @@ print(f"Total params: {n_params}")
 
     Initial loss: 0.7460
     Total params: 354
-    
+
 
 ## The naive idea: numerical gradient
 
@@ -143,9 +143,9 @@ print(f"One numerical gradient took {elapsed:.2f}s")
 print(f"Gradient shapes: dW1 {grads[0][0].shape}, dW2 {grads[1][0].shape}, dW3 {grads[2][0].shape}")
 ```
 
-    One numerical gradient took 0.04s
+    One numerical gradient took 0.05s
     Gradient shapes: dW1 (16, 2), dW2 (16, 16), dW3 (2, 16)
-    
+
 
 ## What does the gradient look like?
 
@@ -199,7 +199,7 @@ print(f"Δ          : {loss_after - loss_before:+.4f}    (negative = good)")
     Loss before: 0.7460
     Loss after : 0.7978
     Δ          : +0.0518    (negative = good)
-    
+
 
 ## The training loop
 
@@ -246,21 +246,21 @@ plt.show()
 ```
 
     step  10/50: loss = 0.2785
-    
+
 
     step  20/50: loss = 0.2499
-    
+
 
     step  30/50: loss = 0.2259
-    
+
 
     step  40/50: loss = 0.1945
-    
+
 
     step  50/50: loss = 0.1625
     
-    Training took 1.8s
-    
+    Training took 2.4s
+
 
 
     

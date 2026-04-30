@@ -42,7 +42,7 @@ print(f"First 80 chars: {text[:80]!r}")
 
     Corpus: 437 characters
     First 80 chars: 'the_transformer_architecture_revolutionized_machine_learning._attention_is_all_y'
-    
+
 
 ## The BPE algorithm
 
@@ -103,7 +103,7 @@ print(f"Trained {len(merges)} merges; final vocab size {len(vocab)}")
 ```
 
     Trained 30 merges; final vocab size 54
-    
+
 
 ## Inspect the merges
 
@@ -145,7 +145,7 @@ for i, (a, b) in enumerate(merges, start=1):
     merge 28:     'ti' + 'on'     -> 'tion'
     merge 29:      'l' + 'e'      -> 'le'
     merge 30:      'r' + 'n'      -> 'rn'
-    
+
 
 ## Encoding and decoding
 
@@ -181,7 +181,7 @@ print("\nround-trip OK")
     decoded: 'the transformer is everywhere'
     
     round-trip OK
-    
+
 
 ## Try it on text the tokenizer hasn't seen
 
@@ -217,7 +217,7 @@ for sample in [
     input : 'xyzzy'
     tokens: ['x', 'y', 'z', 'z', 'y']
     count : 5 tokens for 5 chars  (1.00 chars/token)
-    
+
 
 ## Compression and the vocab/length tradeoff
 
@@ -262,7 +262,7 @@ plt.show()
      100 merges:  206 tokens  (2.12 chars/token)
      200 merges:  206 tokens  (2.12 chars/token)
      500 merges:  206 tokens  (2.12 chars/token)
-    
+
 
 
     
@@ -296,10 +296,14 @@ except ImportError:
     print("then re-run this cell.")
 ```
 
-    `tiktoken` not installed. To compare:
-      pip install tiktoken
-    then re-run this cell.
+    input    : 'the transformer is the substrate of every modern llm'
+    tiktoken : [1820, 43678, 374, 279, 54057, 315, 1475, 6617, 9507, 76]
+    as text  : ['the', ' transformer', ' is', ' the', ' substrate', ' of', ' every', ' modern', ' ll', 'm']
+    count    : 10 tokens for 52 chars
     
+    Comparison: cl100k_base was trained on terabytes — it tokenises common English
+    into roughly one token per word, vs our toy tokenizer that's seen only a paragraph.
+
 
 ## What's next
 

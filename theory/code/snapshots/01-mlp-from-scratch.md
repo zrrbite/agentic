@@ -57,7 +57,7 @@ plt.show()
 ```
 
     X shape: (200, 2)    y shape: (200,)
-    
+
 
 
     
@@ -106,7 +106,7 @@ for i, (W, b) in enumerate(params, start=1):
     Layer 1: W shape (16, 2), b shape (16,)
     Layer 2: W shape (16, 16), b shape (16,)
     Layer 3: W shape (2, 16), b shape (2,)
-    
+
 
 ## Activation and softmax
 
@@ -136,7 +136,7 @@ print("softmax([1, 2, 3]) =", p, "  sums to", p.sum())
 
     ReLU([-1, 0, 1, 2]) = [0 0 1 2]
     softmax([1, 2, 3]) = [[0.09003057 0.24472847 0.66524096]]   sums to 0.9999999999999999
-    
+
 
 ## The forward pass
 
@@ -171,7 +171,7 @@ print("row sums (should be ~1.0):", probs[:3].sum(axis=1))
      [0.66894974 0.33105026]
      [0.62467094 0.37532906]]
     row sums (should be ~1.0): [1. 1. 1.]
-    
+
 
 ## What does an *untrained* network see?
 
@@ -230,7 +230,7 @@ print(f"Random-guess baseline: {-np.log(0.5):.4f}")
 
     Initial loss:          0.7460
     Random-guess baseline: 0.6931
-    
+
 
 ## What's next
 

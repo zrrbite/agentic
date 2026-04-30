@@ -92,7 +92,7 @@ print(f"Initial loss: {loss_fn(params, X, y):.4f}")
 ```
 
     Initial loss: 0.7460
-    
+
 
 ## The plan: chain rule, output to input
 
@@ -212,7 +212,7 @@ for i, ((W, b), (dW, db)) in enumerate(zip(params, grads_a), start=1):
     Layer 1: dW (16, 2) matches W (16, 2),  db (16,) matches b (16,)
     Layer 2: dW (16, 16) matches W (16, 16),  db (16,) matches b (16,)
     Layer 3: dW (2, 16) matches W (2, 16),  db (2,) matches b (2,)
-    
+
 
 ## Sanity check: do they match?
 
@@ -258,9 +258,9 @@ print("can flip a borderline neuron from inactive to active), not a bug in `back
 print("See cs231n's gradient-check notes ('kinks in the objective') for the canonical write-up.")
 ```
 
-    numerical:  36.1 ms  (one call)
-    analytical: 92.7 us  (averaged over 1000 calls)
-    speedup:    389x
+    numerical:  47.4 ms  (one call)
+    analytical: 109.8 us  (averaged over 1000 calls)
+    speedup:    432x
     
     Layer 1: max |dW err| = 1.29e-11,  max |db err| = 8.78e-05
     Layer 2: max |dW err| = 4.90e-06,  max |db err| = 1.99e-04
@@ -271,7 +271,7 @@ print("See cs231n's gradient-check notes ('kinks in the objective') for the cano
     gradient being slightly wrong near ReLU's kink at zero (wiggling a weight by ±h
     can flip a borderline neuron from inactive to active), not a bug in `backward`.
     See cs231n's gradient-check notes ('kinks in the objective') for the canonical write-up.
-    
+
 
 ## Now train with backprop
 
@@ -314,24 +314,26 @@ plt.show()
 ```
 
     step  100/1000: loss = 0.0437
+
+
     step  200/1000: loss = 0.0112
     step  300/1000: loss = 0.0068
-    
-
     step  400/1000: loss = 0.0050
     step  500/1000: loss = 0.0040
     step  600/1000: loss = 0.0033
     step  700/1000: loss = 0.0028
     step  800/1000: loss = 0.0025
     step  900/1000: loss = 0.0022
+
+
     step 1000/1000: loss = 0.0020
     
-    Training took 0.16s   (1000 steps)
-    
+    Training took 0.20s   (1000 steps)
 
 
+
     
-![png](03-backprop_files/03-backprop_11_2.png)
+![png](03-backprop_files/03-backprop_11_3.png)
     
 
 

@@ -53,7 +53,7 @@ print(f"X shape: {X.shape}  (n_tokens, d_model)")
 ```
 
     X shape: (6, 8)  (n_tokens, d_model)
-    
+
 
 ## Step 1: project X into Q, K, V
 
@@ -76,7 +76,7 @@ print(f"Q, K, V each have shape {Q.shape}  (n_tokens, d_k)")
 ```
 
     Q, K, V each have shape (6, 8)  (n_tokens, d_k)
-    
+
 
 ## Step 2: dot-product scores `Q @ K.T`
 
@@ -101,7 +101,7 @@ print(np.round(scores, 2))
      [-0.08 -0.47 -0.1   0.6  -3.82 -1.17]
      [ 4.74 -6.29 -1.41 -0.85 -5.98 -1.56]
      [ 1.15 -1.5  -0.76  0.58 -3.23 -0.98]]
-    
+
 
 ## Step 3: softmax row-wise → attention weights
 
@@ -129,7 +129,7 @@ print(np.round(attn, 2))
      [0.2  0.14 0.2  0.4  0.   0.07]
      [0.99 0.   0.   0.   0.   0.  ]
      [0.52 0.04 0.08 0.3  0.01 0.06]]
-    
+
 
 ## Visualise the attention weights
 
@@ -184,7 +184,7 @@ print("matches manual loop:", np.allclose(output, manual))
 
     output shape: (6, 8)  (one new vector per token)
     matches manual loop: True
-    
+
 
 ## Wrap it up as a function
 
@@ -216,7 +216,7 @@ print("works; output shape:", out.shape)
 ```
 
     works; output shape: (6, 8)
-    
+
 
 ## Causal masking — blocking the future
 
@@ -245,7 +245,7 @@ plot_attn(w_causal, tokens, title="Causal self-attention (no peeking ahead)")
      [0 0 0 0 1 1]
      [0 0 0 0 0 1]
      [0 0 0 0 0 0]]
-    
+
 
 
     
@@ -315,7 +315,7 @@ plt.show()
 
     MHA output shape: (6, 8)  (n, d_model)
     MHA weights shape: (4, 6, 6)  (num_heads, n, n)
-    
+
 
 
     
@@ -355,7 +355,7 @@ print("(GPT-2), or rotary/RoPE (LLaMA, modern LLMs). See ../transformers.md.")
     reshuffling identically. To use word order, real transformers add
     **positional encodings** to X — sinusoidal (original paper), learned
     (GPT-2), or rotary/RoPE (LLaMA, modern LLMs). See ../transformers.md.
-    
+
 
 ## What's next
 
