@@ -1,2 +1,8 @@
 .claude/
 .DS_Store
+
+# Python / notebooks
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
