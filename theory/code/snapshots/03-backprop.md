@@ -258,9 +258,9 @@ print("can flip a borderline neuron from inactive to active), not a bug in `back
 print("See cs231n's gradient-check notes ('kinks in the objective') for the canonical write-up.")
 ```
 
-    numerical:  47.4 ms  (one call)
-    analytical: 109.8 us  (averaged over 1000 calls)
-    speedup:    432x
+    numerical:  47.7 ms  (one call)
+    analytical: 109.7 us  (averaged over 1000 calls)
+    speedup:    435x
     
     Layer 1: max |dW err| = 1.29e-11,  max |db err| = 8.78e-05
     Layer 2: max |dW err| = 4.90e-06,  max |db err| = 1.99e-04
