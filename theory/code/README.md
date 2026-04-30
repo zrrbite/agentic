@@ -19,7 +19,7 @@ If you've never used a Jupyter notebook → **read [`NOTEBOOKS.md`](NOTEBOOKS.md
 | File | Companion to | What you'll build |
 |---|---|---|
 | [`01-mlp-from-scratch.ipynb`](01-mlp-from-scratch.ipynb) | [`../neural-networks.md`](../neural-networks.md) | A small MLP forward pass in NumPy, on a "two moons" toy dataset |
-| `02-gradient-descent.ipynb` *(planned)* | [`../gradient-descent.md`](../gradient-descent.md) | Train the MLP with numerical gradients (slow but clear) |
+| [`02-gradient-descent.ipynb`](02-gradient-descent.ipynb) | [`../gradient-descent.md`](../gradient-descent.md) | Train the MLP with numerical gradients (slow but clear) |
 | `03-micrograd-style.ipynb` *(planned)* | [`../backpropagation.md`](../backpropagation.md) | A tiny autograd engine (~150 lines), then the same MLP retrained orders of magnitude faster |
 | `04-bpe-from-scratch.ipynb` *(planned)* | [`../tokenization.md`](../tokenization.md) | A working byte-pair encoder, tokenise some text |
 | `05-attention-by-hand.ipynb` *(planned)* | [`../transformers.md`](../transformers.md) | One self-attention layer in NumPy; visualise attention weights |
