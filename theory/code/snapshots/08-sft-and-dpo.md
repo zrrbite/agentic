@@ -82,10 +82,23 @@ Check that the model works and see how it answers our test prompts. Without fine
 ```python
 def chat(prompt, max_new=80):
     messages = [{"role": "user", "content": prompt}]
-    inputs = tokenizer.apply_chat_template(messages, return_tensors="pt", add_generation_prompt=True).to("cuda")
+    # apply_chat_template returns a dict-like BatchEncoding in modern transformers;
+    # use return_dict=True and unpack with ** so model.generate gets attention_mask too.
+    inputs = tokenizer.apply_chat_template(
+        messages,
+        return_tensors="pt",
+        add_generation_prompt=True,
+        return_dict=True,
+    ).to("cuda")
     with torch.no_grad():
-        out = model.generate(inputs, max_new_tokens=max_new, do_sample=False, pad_token_id=tokenizer.eos_token_id)
-    return tokenizer.decode(out[0][inputs.shape[1]:], skip_special_tokens=True)
+        out = model.generate(
+            **inputs,
+            max_new_tokens=max_new,
+            do_sample=False,
+            pad_token_id=tokenizer.eos_token_id,
+        )
+    input_len = inputs["input_ids"].shape[1]
+    return tokenizer.decode(out[0][input_len:], skip_special_tokens=True)
 
 TEST_PROMPTS = [
     "What is the moon?",
@@ -95,9 +108,10 @@ TEST_PROMPTS = [
 ]
 
 print("=== BEFORE FINE-TUNING ===")
-for p in TEST_PROMPTS:
-    print(f"\n>>> {p}")
-    print(chat(p))
+for prompt in TEST_PROMPTS:
+    print()
+    print(f">>> {prompt}")
+    print(chat(prompt))
 ```
 
 ## The training data
@@ -224,15 +238,18 @@ Same prompts as before. The model should now answer in three-line haiku format.
 
 ```python
 print("=== AFTER FINE-TUNING ===")
-for p in TEST_PROMPTS:
-    print(f"\n>>> {p}")
-    print(chat(p))
+for prompt in TEST_PROMPTS:
+    print()
+    print(f">>> {prompt}")
+    print(chat(prompt))
 
 # Bonus: try prompts not in the training set
-print("\n=== UNSEEN PROMPTS ===")
-for p in ["Describe technology.", "What is sleep?", "Tell me about coffee."]:
-    print(f"\n>>> {p}")
-    print(chat(p))
+print()
+print("=== UNSEEN PROMPTS ===")
+for prompt in ["Describe technology.", "What is sleep?", "Tell me about coffee."]:
+    print()
+    print(f">>> {prompt}")
+    print(chat(prompt))
 ```
 
 ## What just happened
