@@ -233,12 +233,14 @@ peft_config = LoraConfig(
 
 ## Train
 
-The catastrophic 'useruseruser' overfit on the first run came from training on the *full* sequence (user prompt + assistant). The model learned to predict role-tag tokens at every position. Two settings prevent that:
+The first run produced a 'useruseruser' loop — model overfit on chat-template role tags. The fix: a custom `CompletionOnlyCollator` that masks every label up to the assistant marker (`<|im_start|>assistant\n`) out of the loss. The model is now only graded on its own response.
 
-- `num_train_epochs=5` — enough for format learning, not enough to memorise role tags
-- A custom `CompletionOnlyCollator` — masks everything up to the assistant marker (`<|im_start|>assistant\n`) out of the loss so the model is only graded on its own response. This is what TRL's deprecated `DataCollatorForCompletionOnlyLM` did; we re-implement it inline because newer TRL removed it and SmolLM's chat template doesn't support `assistant_only_loss=True`.
+With masking correct, more training just produces stylised haiku rather than role-tag loops, so we can be aggressive:
 
-~2-3 min on a T4.
+- `num_train_epochs=15` — ~110 update steps total
+- `learning_rate=2e-4` — enough to actually shift behaviour
+
+~5-7 min on a T4.
 
 
 ```python
@@ -255,8 +257,6 @@ RESPONSE_TEMPLATE = "<|im_start|>assistant\n"
 class CompletionOnlyCollator:
     def __init__(self, tokenizer, response_template):
         self.base = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
-        # Tokenize the marker (without special tokens) so we can find it
-        # as a subsequence in each example
         self.response_ids = tokenizer.encode(response_template, add_special_tokens=False)
 
     def __call__(self, examples):
@@ -264,13 +264,11 @@ class CompletionOnlyCollator:
         n = len(self.response_ids)
         for i in range(batch["labels"].size(0)):
             ids = batch["input_ids"][i].tolist()
-            # Find the response template tokens; mask everything up to and including them
             for j in range(len(ids) - n + 1):
                 if ids[j : j + n] == self.response_ids:
                     batch["labels"][i, : j + n] = -100
                     break
             else:
-                # Marker not found — drop this example from loss entirely
                 batch["labels"][i, :] = -100
         return batch
 
@@ -278,10 +276,10 @@ collator = CompletionOnlyCollator(tokenizer, RESPONSE_TEMPLATE)
 
 training_args = SFTConfig(
     output_dir="./haiku-sft",
-    num_train_epochs=5,
+    num_train_epochs=15,                  # was 5 — masking is correct now, can train longer
     per_device_train_batch_size=2,
     gradient_accumulation_steps=4,
-    learning_rate=1e-4,
+    learning_rate=2e-4,                   # was 1e-4 — needed to actually move the weights
     warmup_ratio=0.1,
     bf16=True,
     logging_steps=10,
