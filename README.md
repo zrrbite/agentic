@@ -12,6 +12,7 @@ A rough-notes knowledge base for exploring what **Claude Code** (and agentic cod
 | [`integrations/`](integrations/) | External tools that talk to Claude Code — OpenClaw, n8n, LangGraph, CrewAI, Letta |
 | [`alternatives/`](alternatives/) | Competing agentic coding tools — OpenCode, Cursor, Aider, Cline, Codex, Continue, Windsurf, Zed, Goose |
 | [`sources/`](sources/) | Where to find more — awesome-lists, plugin marketplaces, skill repos, MCP registries |
+| [`theory/`](theory/) | How LLMs actually work — neural networks, gradient descent, transformers, training (RLHF/DPO), inference. Beginner + advanced sections per file |
 | [`experiments/`](experiments/) | Hands-on "I tried X" notes (dated files, added as you go) |
 
 ## Start here
@@ -19,6 +20,7 @@ A rough-notes knowledge base for exploring what **Claude Code** (and agentic cod
 - New to Claude Code extension points? → [`claude-code/README.md`](claude-code/README.md)
 - Looking for prebuilt skills/plugins? → [`sources/skill-repos.md`](sources/skill-repos.md)
 - Comparing tools? → [`alternatives/README.md`](alternatives/README.md)
+- Want to understand how LLMs work under the hood? → [`theory/README.md`](theory/README.md)
 
 ## Conventions
 
