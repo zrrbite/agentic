@@ -6,3 +6,8 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# Notebook artefacts (cached datasets, model checkpoints, training output dirs)
+theory/code/tinyshakespeare.txt
+theory/code/*.pt
+theory/code/haiku-sft/

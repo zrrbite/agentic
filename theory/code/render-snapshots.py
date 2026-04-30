@@ -6,11 +6,21 @@ By default re-runs each notebook fresh and writes the result as markdown
 from theory/code/, with the venv activated so `jupyter nbconvert` is
 on PATH.
 
+Notebooks listed in SKIP_EXECUTE are converted as-is (their existing
+cell outputs are kept). This is for notebooks that need a GPU or other
+resources we don't have in CI / local — e.g. 08 needs a Colab GPU.
+
 Usage:
     python render-snapshots.py                    # all 0?-*.ipynb
     python render-snapshots.py 01-*.ipynb         # one or more by name
     python render-snapshots.py --no-execute ...   # convert without re-running
 """
+
+# Notebooks that should be converted but NOT executed (e.g. need a GPU).
+# These will be rendered with whatever cell outputs are already in the file.
+SKIP_EXECUTE = {
+    "08-sft-and-dpo.ipynb",   # needs Colab GPU; can't run on CPU or in CI
+}
 import argparse
 import subprocess
 import sys
@@ -63,8 +73,10 @@ def main() -> int:
             "--output-dir", str(out_dir),
             f"--ExecutePreprocessor.timeout={args.timeout}",
         ]
-        if not args.no_execute:
+        if not args.no_execute and nb.name not in SKIP_EXECUTE:
             cmd.append("--execute")
+        elif nb.name in SKIP_EXECUTE:
+            print(f"  (skip-execute: {nb.name} listed in SKIP_EXECUTE)")
         cmd.append(str(nb))
 
         result = subprocess.run(cmd, capture_output=True, text=True)

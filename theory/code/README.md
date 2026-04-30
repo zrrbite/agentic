@@ -26,9 +26,9 @@ If the math feels rusty (derivatives, chain rule, matrix calculus, cross-entropy
 | [`04-bpe-from-scratch.ipynb`](04-bpe-from-scratch.ipynb) | [`../tokenization.md`](../tokenization.md) | A working byte-pair encoder, train + encode/decode, compare to `tiktoken` |
 | [`05-attention-by-hand.ipynb`](05-attention-by-hand.ipynb) | [`../transformers.md`](../transformers.md) | Self-attention + multi-head + causal mask in NumPy; visualise attention weights; show why we need positional encodings |
 | [`06-mini-gpt.ipynb`](06-mini-gpt.ipynb) | [`../transformers.md`](../transformers.md) | Tiny GPT (~800K params, 4 layers) in PyTorch, trained on Tiny Shakespeare. Generate samples |
-| `07-training-loop.py` *(planned)* | [`../llm-training.md`](../llm-training.md) | Pretraining loop with logging, LR schedule, gradient clipping |
-| `08-sft-and-dpo.py` *(planned)* | [`../llm-training.md`](../llm-training.md) | SFT then DPO on a toy preference set |
-| `09-sampling-and-kvcache.py` *(planned)* | [`../inference.md`](../inference.md) | Generation with KV cache and sampling knobs |
+| [`07-training-loop.ipynb`](07-training-loop.ipynb) | [`../llm-training.md`](../llm-training.md) | Production-style training loop: LR schedule (warmup + cosine), gradient clipping, val tracking, checkpointing |
+| [`08-sft-and-dpo.ipynb`](08-sft-and-dpo.ipynb) | [`../llm-training.md`](../llm-training.md) | **Colab GPU only.** Fine-tune SmolLM-360M with QLoRA + SFT to answer in haiku |
+| [`09-sampling-and-kvcache.ipynb`](09-sampling-and-kvcache.ipynb) | [`../inference.md`](../inference.md) | Sampling strategies (greedy, temp, top-k, top-p) + KV cache from scratch + benchmark |
 
 ## Setup
 
