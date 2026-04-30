@@ -337,11 +337,17 @@ class CompletionOnlyCollator:
 
 collator = CompletionOnlyCollator(tokenizer, RESPONSE_TEMPLATE)
 
-# Sanity print: show a tokenized example with its mask, so it's obvious which
-# tokens contribute to loss and which don't.
-sample_batch = collator([dataset[0]])
-print(f"sample input length: {sample_batch['input_ids'].size(1)} tokens")
-print(f"unmasked label tokens: {(sample_batch['labels'] != -100).sum().item()} (the assistant's response)")
+# Sanity print: show what the collator does to one example. Tokenize first
+# (SFTTrainer does this internally before calling the collator).
+_sample_tokens = tokenizer(dataset[0]["text"], return_tensors=None)
+_sample_batch = collator([{
+    "input_ids": _sample_tokens["input_ids"],
+    "attention_mask": _sample_tokens["attention_mask"],
+}])
+_total = _sample_batch["labels"].size(1)
+_unmasked = (_sample_batch["labels"] != -100).sum().item()
+print(f"sample length: {_total} tokens; {_unmasked} contribute to loss ({100*_unmasked/_total:.0f}%)")
+print(f"(the unmasked tokens are the assistant's haiku response)")
 print()
 
 training_args = SFTConfig(
