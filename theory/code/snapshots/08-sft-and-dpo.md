@@ -80,10 +80,10 @@ Check that the model works and see how it answers our test prompts. Without fine
 
 
 ```python
-def chat(prompt, max_new=80):
+def chat(prompt, max_new=80, temperature=0.7, top_p=0.9):
+    """Sample from the model. Sampling (not greedy) helps the fine-tuned
+    model escape mode collapse — greedy can lock into a degenerate prefix."""
     messages = [{"role": "user", "content": prompt}]
-    # apply_chat_template returns a dict-like BatchEncoding in modern transformers;
-    # use return_dict=True and unpack with ** so model.generate gets attention_mask too.
     inputs = tokenizer.apply_chat_template(
         messages,
         return_tensors="pt",
@@ -94,7 +94,9 @@ def chat(prompt, max_new=80):
         out = model.generate(
             **inputs,
             max_new_tokens=max_new,
-            do_sample=False,
+            do_sample=True,
+            temperature=temperature,
+            top_p=top_p,
             pad_token_id=tokenizer.eos_token_id,
         )
     input_len = inputs["input_ids"].shape[1]
@@ -222,8 +224,8 @@ Key knobs:
 
 ```python
 peft_config = LoraConfig(
-    r=16,
-    lora_alpha=32,
+    r=8,                      # was 16 — half the params, less room to overfit on small data
+    lora_alpha=16,            # rule of thumb: alpha = 2 * r
     target_modules="all-linear",
     lora_dropout=0.05,
     bias="none",
@@ -233,25 +235,26 @@ peft_config = LoraConfig(
 
 ## Train
 
-The first run produced a 'useruseruser' loop — model overfit on chat-template role tags. The fix: a custom `CompletionOnlyCollator` that masks every label up to the assistant marker (`<|im_start|>assistant\n`) out of the loss. The model is now only graded on its own response.
+Three settings to balance learning vs overfit on a small (60-example) dataset:
 
-With masking correct, more training just produces stylised haiku rather than role-tag loops, so we can be aggressive:
+- **LoRA `r=8`** — fewer trainable parameters, less capacity to memorise random patterns
+- **`num_train_epochs=10`** — between the under-fit 5 and over-fit 15 we tried
+- **`CompletionOnlyCollator`** — masks every label up to `<|im_start|>assistant\n` from the loss so the model only learns from its own response
 
-- `num_train_epochs=15` — ~110 update steps total
-- `learning_rate=2e-4` — enough to actually shift behaviour
+The cell below also prints a quick mask-inspection so you can see which tokens contribute to the loss and which are masked out.
 
-~5-7 min on a T4.
+~3-5 min on a T4.
 
 
 ```python
 import torch
 from transformers import DataCollatorForLanguageModeling
 
-# Recent TRL versions removed DataCollatorForCompletionOnlyLM from the public
-# API; SmolLM's chat template doesn't support assistant_only_loss either.
-# So we roll our own: tokenize the full chat-templated sequence with the
-# default collator, then null out (-100) every label up to and including
-# the assistant role marker so the model is only graded on its own response.
+# Recent TRL versions removed DataCollatorForCompletionOnlyLM from the public API;
+# SmolLM's chat template doesn't support assistant_only_loss either. So we
+# roll our own: tokenize the full chat-templated sequence with the default
+# collator, then null out (-100) every label up to and including the assistant
+# role marker so the model is only graded on its own response.
 RESPONSE_TEMPLATE = "<|im_start|>assistant\n"
 
 class CompletionOnlyCollator:
@@ -274,12 +277,19 @@ class CompletionOnlyCollator:
 
 collator = CompletionOnlyCollator(tokenizer, RESPONSE_TEMPLATE)
 
+# Sanity print: show a tokenized example with its mask, so it's obvious which
+# tokens contribute to loss and which don't.
+sample_batch = collator([dataset[0]])
+print(f"sample input length: {sample_batch['input_ids'].size(1)} tokens")
+print(f"unmasked label tokens: {(sample_batch['labels'] != -100).sum().item()} (the assistant's response)")
+print()
+
 training_args = SFTConfig(
     output_dir="./haiku-sft",
-    num_train_epochs=15,                  # was 5 — masking is correct now, can train longer
+    num_train_epochs=10,                  # middle ground (5 = undertrained, 15 = collapse)
     per_device_train_batch_size=2,
     gradient_accumulation_steps=4,
-    learning_rate=2e-4,                   # was 1e-4 — needed to actually move the weights
+    learning_rate=1.5e-4,                 # middle ground (1e-4 = barely moves, 2e-4 = collapse)
     warmup_ratio=0.1,
     bf16=True,
     logging_steps=10,
