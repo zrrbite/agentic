@@ -21,6 +21,7 @@ A rough-notes knowledge base for exploring what **Claude Code** (and agentic cod
 - Looking for prebuilt skills/plugins? → [`sources/skill-repos.md`](sources/skill-repos.md)
 - Comparing tools? → [`alternatives/README.md`](alternatives/README.md)
 - Want to understand how LLMs work under the hood? → [`theory/README.md`](theory/README.md)
+- Want to read the LLM notebooks on your phone (no install)? → [`theory/code/snapshots/`](theory/code/snapshots/)
 
 ## Getting started — running the LLM theory notebooks
 
