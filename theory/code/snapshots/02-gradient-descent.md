@@ -259,7 +259,7 @@ plt.show()
 
     step  50/50: loss = 0.1625
     
-    Training took 2.4s
+    Training took 2.3s
 
 
 

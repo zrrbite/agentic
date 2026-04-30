@@ -43,7 +43,7 @@ decode = lambda ids: "".join(itoc[i] for i in ids)
 ```
 
     PyTorch 2.11.0+cpu, device cpu
-    
+
 
 
 ```python
@@ -122,7 +122,7 @@ print(f"Ready. params: {sum(p.numel() for p in model.parameters()):,}")
 
     Loaded checkpoint from notebook 07 (val_loss 2.259)
     Ready. params: 816,128
-    
+
 
 # Part 1: sampling strategies
 
@@ -167,12 +167,12 @@ print(generate_greedy(model, "\n"))
 ```
 
     === greedy ===
-    
+
 
     
     The the the the the the theat the the the the the the theat the t the the thean
     The the the the the the the the the the 
-    
+
 
 ## Temperature
 
@@ -212,7 +212,7 @@ for T in [0.3, 0.7, 1.0, 1.5]:
     The the that the that t
     
     === T=0.7 ===
-    
+
 
     
     At 's mat co wilorde le!
@@ -226,13 +226,13 @@ for T in [0.3, 0.7, 1.0, 1.5]:
     Ane hit be mye tamfors ber bof haksweem, f
     
     === T=1.5 ===
-    
+
 
     
     Dt!'Tantercos: loroky hot'e; wissertermoup
     Rrabe k-et ymforstert rof hUksweem, f
     
-    
+
 
 ## Top-k
 
@@ -304,7 +304,7 @@ for cfg in [
     Anor stout bof han weer, f
     
     === {'T': 1.0, 'top_p': 0.9} ===
-    
+
 
     
     At dil tho meno orde lattseal waser hem fotheace mees
@@ -315,7 +315,7 @@ for cfg in [
     At dil tho meno orde lattseal waser hem fotheace mee thif wit me bead
     We ween, f
     
-    
+
 
 # Part 2: the KV cache
 
@@ -425,8 +425,6 @@ print("Cached model built; weights copied.")
 
     Cached model built; weights copied.
 
-    
-    
 
 
 ```python
@@ -461,7 +459,7 @@ print(generate_cached(cached, "\n", max_new=80, T=0.8))
     
     th remh thit whenlle bouce meaman y id Igelstet My
     pourey hif th
-    
+
 
 ## Benchmark: with vs without cache
 
@@ -515,23 +513,25 @@ plt.legend(); plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-    n=  4: no-cache    5.5 ms,  cached    5.4 ms,  speedup 1.03x
-    n=  8: no-cache   11.9 ms,  cached   11.2 ms,  speedup 1.06x
-    n= 16: no-cache   22.2 ms,  cached   20.4 ms,  speedup 1.09x
-    
-
-    n= 32: no-cache   42.3 ms,  cached   36.8 ms,  speedup 1.15x
-    
-
-    n= 48: no-cache   71.3 ms,  cached   58.2 ms,  speedup 1.23x
-    
-
-    n= 60: no-cache   93.9 ms,  cached   73.6 ms,  speedup 1.28x
-    
+    n=  4: no-cache    5.6 ms,  cached    6.0 ms,  speedup 0.93x
+    n=  8: no-cache   12.0 ms,  cached   11.6 ms,  speedup 1.03x
 
 
+    n= 16: no-cache   24.5 ms,  cached   21.4 ms,  speedup 1.14x
+
+
+    n= 32: no-cache   52.7 ms,  cached   39.0 ms,  speedup 1.35x
+
+
+    n= 48: no-cache   85.9 ms,  cached   57.9 ms,  speedup 1.48x
+
+
+    n= 60: no-cache  115.0 ms,  cached   71.5 ms,  speedup 1.61x
+
+
+
     
-![png](09-sampling-and-kvcache_files/09-sampling-and-kvcache_19_4.png)
+![png](09-sampling-and-kvcache_files/09-sampling-and-kvcache_19_5.png)
     
 
 
@@ -572,12 +572,10 @@ print(f"  -> per-prompt-token cost: {t_prefill*1e3/idx.size(1):.2f} ms")
 print(f"Decode (one new token, with cache):                       {t_decode*1e3:.2f} ms")
 ```
 
-    Prefill (whole 60-token prompt, single forward): 2.33 ms total
+    Prefill (whole 60-token prompt, single forward): 2.88 ms total
+      -> per-prompt-token cost: 0.05 ms
+    Decode (one new token, with cache):                       1.53 ms
 
-    
-      -> per-prompt-token cost: 0.04 ms
-    Decode (one new token, with cache):                       1.79 ms
-    
 
 ## What's next
 

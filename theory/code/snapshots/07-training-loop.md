@@ -61,10 +61,8 @@ print(f"vocab_size: {vocab_size}, train tokens: {len(train_data):,}")
 ```
 
     PyTorch 2.11.0+cpu, device cpu
-    
-
     vocab_size: 65, train tokens: 1,003,854
-    
+
 
 
 ```python
@@ -120,7 +118,7 @@ print(f"params: {sum(p.numel() for p in model.parameters()):,}")
 ```
 
     params: 816,128
-    
+
 
 ## 1. Learning-rate schedule
 
@@ -247,36 +245,36 @@ history = train(model, total_steps=1000)
 ```
 
     step  100/1000  lr 2.98e-04  train 2.680  val 2.708  ||g|| 0.32  (saved checkpoint)
-    
+
 
     step  200/1000  lr 2.84e-04  train 2.525  val 2.513  ||g|| 0.38  (saved checkpoint)
-    
+
 
     step  300/1000  lr 2.57e-04  train 2.446  val 2.445  ||g|| 0.46  (saved checkpoint)
-    
+
 
     step  400/1000  lr 2.20e-04  train 2.392  val 2.395  ||g|| 0.45  (saved checkpoint)
-    
+
 
     step  500/1000  lr 1.77e-04  train 2.389  val 2.365  ||g|| 0.51  (saved checkpoint)
-    
+
 
     step  600/1000  lr 1.32e-04  train 2.284  val 2.323  ||g|| 0.48  (saved checkpoint)
-    
+
 
     step  700/1000  lr 9.15e-05  train 2.261  val 2.308  ||g|| 0.44  (saved checkpoint)
-    
+
 
     step  800/1000  lr 5.87e-05  train 2.282  val 2.291  ||g|| 0.49  (saved checkpoint)
-    
+
 
     step  900/1000  lr 3.75e-05  train 2.261  val 2.275  ||g|| 0.53  (saved checkpoint)
-    
+
 
     step 1000/1000  lr 3.00e-05  train 2.226  val 2.259  ||g|| 0.51  (saved checkpoint)
     
-    Best val loss: 2.259   total time: 48s
-    
+    Best val loss: 2.259   total time: 97s
+
 
 ## What the loop produced
 
@@ -326,7 +324,7 @@ print(f"\nGradient clipping fired on {frac_clipped*100:.1f}% of steps.")
 
     
     Gradient clipping fired on 2.0% of steps.
-    
+
 
 ## Save & load
 
@@ -374,7 +372,7 @@ print(f"checkpoint metadata: step {ckpt['step']}, val_loss {ckpt['val_loss']:.3f
     
     --- now reloading from checkpoint ---
     
-    
+
 
     
     At 's mat co wilorde latt'e y waser hem fo
@@ -384,7 +382,7 @@ print(f"checkpoint metadata: step {ckpt['step']}, val_loss {ckpt['val_loss']:.3f
     
     identical samples: True
     checkpoint metadata: step 1000, val_loss 2.259
-    
+
 
 ## What's next
 
