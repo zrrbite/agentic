@@ -233,25 +233,48 @@ peft_config = LoraConfig(
 
 ## Train
 
-Settings that prevent the catastrophic over-fit (the 'useruseruser...' loop) we hit on the first run:
+The catastrophic 'useruseruser' overfit on the first run came from training on the *full* sequence (user prompt + assistant). The model learned to predict role-tag tokens at every position. Two settings prevent that:
 
 - `num_train_epochs=5` — enough for format learning, not enough to memorise role tags
-- `DataCollatorForCompletionOnlyLM` — masks the user prompt from the loss so the model only learns from the assistant's response. Works for any chat-templated model; we just give it the assistant role marker (`<|im_start|>assistant\n` for SmolLM's ChatML template)
+- A custom `CompletionOnlyCollator` — masks everything up to the assistant marker (`<|im_start|>assistant\n`) out of the loss so the model is only graded on its own response. This is what TRL's deprecated `DataCollatorForCompletionOnlyLM` did; we re-implement it inline because newer TRL removed it and SmolLM's chat template doesn't support `assistant_only_loss=True`.
 
 ~2-3 min on a T4.
 
 
 ```python
-from trl import DataCollatorForCompletionOnlyLM
+import torch
+from transformers import DataCollatorForLanguageModeling
 
-# Mask everything before this string from the loss — model only learns from
-# what comes AFTER the assistant role marker. Works for any chat-templated
-# model; just need the right marker string for SmolLM's ChatML template.
+# Recent TRL versions removed DataCollatorForCompletionOnlyLM from the public
+# API; SmolLM's chat template doesn't support assistant_only_loss either.
+# So we roll our own: tokenize the full chat-templated sequence with the
+# default collator, then null out (-100) every label up to and including
+# the assistant role marker so the model is only graded on its own response.
 RESPONSE_TEMPLATE = "<|im_start|>assistant\n"
-collator = DataCollatorForCompletionOnlyLM(
-    response_template=RESPONSE_TEMPLATE,
-    tokenizer=tokenizer,
-)
+
+class CompletionOnlyCollator:
+    def __init__(self, tokenizer, response_template):
+        self.base = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
+        # Tokenize the marker (without special tokens) so we can find it
+        # as a subsequence in each example
+        self.response_ids = tokenizer.encode(response_template, add_special_tokens=False)
+
+    def __call__(self, examples):
+        batch = self.base(examples)
+        n = len(self.response_ids)
+        for i in range(batch["labels"].size(0)):
+            ids = batch["input_ids"][i].tolist()
+            # Find the response template tokens; mask everything up to and including them
+            for j in range(len(ids) - n + 1):
+                if ids[j : j + n] == self.response_ids:
+                    batch["labels"][i, : j + n] = -100
+                    break
+            else:
+                # Marker not found — drop this example from loss entirely
+                batch["labels"][i, :] = -100
+        return batch
+
+collator = CompletionOnlyCollator(tokenizer, RESPONSE_TEMPLATE)
 
 training_args = SFTConfig(
     output_dir="./haiku-sft",
