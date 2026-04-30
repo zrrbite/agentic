@@ -14,6 +14,8 @@ Each chapter in `../` has a matching notebook or script here. Goal: make the mat
 
 If you've never used a Jupyter notebook → **read [`NOTEBOOKS.md`](NOTEBOOKS.md) first**.
 
+If the math feels rusty (derivatives, chain rule, matrix calculus, cross-entropy) → see [`MATH-PRIMER.md`](MATH-PRIMER.md) for curated free references.
+
 ## Layout
 
 | File | Companion to | What you'll build |
@@ -21,7 +23,7 @@ If you've never used a Jupyter notebook → **read [`NOTEBOOKS.md`](NOTEBOOKS.md
 | [`01-mlp-from-scratch.ipynb`](01-mlp-from-scratch.ipynb) | [`../neural-networks.md`](../neural-networks.md) | A small MLP forward pass in NumPy, on a "two moons" toy dataset |
 | [`02-gradient-descent.ipynb`](02-gradient-descent.ipynb) | [`../gradient-descent.md`](../gradient-descent.md) | Train the MLP with numerical gradients (slow but clear) |
 | [`03-backprop.ipynb`](03-backprop.ipynb) | [`../backpropagation.md`](../backpropagation.md) | Hand-derive backprop for the MLP, gradient-check against numerical, retrain ~100× faster |
-| `04-bpe-from-scratch.ipynb` *(planned)* | [`../tokenization.md`](../tokenization.md) | A working byte-pair encoder, tokenise some text |
+| [`04-bpe-from-scratch.ipynb`](04-bpe-from-scratch.ipynb) | [`../tokenization.md`](../tokenization.md) | A working byte-pair encoder, train + encode/decode, compare to `tiktoken` |
 | `05-attention-by-hand.ipynb` *(planned)* | [`../transformers.md`](../transformers.md) | One self-attention layer in NumPy; visualise attention weights |
 | `06-mini-gpt.ipynb` *(planned)* | [`../transformers.md`](../transformers.md) | A tiny GPT in PyTorch (à la nanoGPT), trained on a small text |
 | `07-training-loop.py` *(planned)* | [`../llm-training.md`](../llm-training.md) | Pretraining loop with logging, LR schedule, gradient clipping |
