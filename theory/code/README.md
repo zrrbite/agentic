@@ -72,7 +72,7 @@ Navigate to a `.ipynb` file and double-click to open. Or open the `.ipynb` file 
 
 ## Reading the notebooks without running them
 
-Pre-rendered markdown copies (with plots inline) live in [`snapshots/`](snapshots/). They render natively on github.com — handy for reading on a phone or sharing without the recipient running anything.
+Pre-rendered markdown copies (with plots inline) live in [`snapshots/`](snapshots/) — see the [snapshot index](snapshots/README.md) for the full reading order. They render natively on github.com; handy for reading on a phone or sharing without the recipient running anything.
 
 Re-generate them locally with:
 
@@ -83,7 +83,14 @@ python render-snapshots.py 02-*.ipynb     # one notebook
 python render-snapshots.py --no-execute   # convert without re-running
 ```
 
-GitHub Actions also re-renders snapshots on every push to `main` that touches a notebook ([`.github/workflows/render-snapshots.yml`](../../.github/workflows/render-snapshots.yml)).
+GitHub Actions re-renders snapshots on every push to `main` that touches a notebook ([`.github/workflows/render-snapshots.yml`](../../.github/workflows/render-snapshots.yml)).
+
+For a fast (sub-second) smoke test before pushing — JSON valid, Python syntax in code cells parses — without running the notebooks:
+
+```bash
+python check-notebooks.py            # all notebooks
+python check-notebooks.py --hook     # install as a git pre-push hook (opt-in)
+```
 
 ## Conventions for these notebooks
 
