@@ -196,17 +196,20 @@ TRL's `SFTTrainer` expects either a single `text` field with the full conversati
 
 
 ```python
-def format_example(q, a):
-    messages = [
-        {"role": "user", "content": q},
-        {"role": "assistant", "content": a},
-    ]
-    return {"text": tokenizer.apply_chat_template(messages, tokenize=False)}
+dataset = Dataset.from_list([
+    {
+        "messages": [
+            {"role": "user", "content": q},
+            {"role": "assistant", "content": a},
+        ]
+    }
+    for q, a in HAIKU_DATASET
+])
 
-dataset = Dataset.from_list([format_example(q, a) for q, a in HAIKU_DATASET])
-
-print("First formatted example:")
-print(dataset[0]["text"])
+print(f"{len(dataset)} training examples in `messages` format")
+print()
+print("First example (rendered with chat template, for inspection only):")
+print(tokenizer.apply_chat_template(dataset[0]["messages"], tokenize=False))
 ```
 
 ## QLoRA configuration
@@ -232,27 +235,41 @@ peft_config = LoraConfig(
 
 ## Train
 
-20 epochs over 30 examples = ~600 training steps. Should take 2–5 min on a T4.
+20 epochs over 60 examples is overkill — earlier runs of this notebook produced 'useruseruser...' garbage from the model overfitting on chat-template role tags. Two settings keep that from happening:
+
+- `num_train_epochs=5` — plenty for format learning, not enough to overfit role tags
+- `assistant_only_loss=True` — masks the user prompt from the loss so the model isn't trying to predict user turns. Crucial. Available in TRL >= 0.12
+
+~2-3 min on a T4.
 
 
 ```python
-training_args = SFTConfig(
-    output_dir="./haiku-sft",
-    num_train_epochs=20,
-    per_device_train_batch_size=2,
-    gradient_accumulation_steps=4,
-    learning_rate=2e-4,
-    warmup_ratio=0.1,
-    bf16=True,
-    logging_steps=10,
-    save_strategy="no",
-    report_to="none",
-    # Note: TRL >= 0.12 removed max_seq_length from SFTConfig.
-    # Our examples are short (~150 chars formatted), well below any default cap.
-)
+# Build SFTConfig. assistant_only_loss masks the user portion from loss
+# (was added to TRL 0.12+). Try with it, fall back if older.
+def make_config(**extra):
+    return SFTConfig(
+        output_dir="./haiku-sft",
+        num_train_epochs=5,                  # was 20 — fewer epochs = less overfit
+        per_device_train_batch_size=2,
+        gradient_accumulation_steps=4,
+        learning_rate=1e-4,                  # was 2e-4 — gentler updates
+        warmup_ratio=0.1,
+        bf16=True,
+        logging_steps=10,
+        save_strategy="no",
+        report_to="none",
+        **extra,
+    )
+
+try:
+    training_args = make_config(assistant_only_loss=True)
+    print("Using assistant_only_loss=True (TRL >= 0.12)")
+except TypeError:
+    training_args = make_config()
+    print("WARNING: TRL too old for assistant_only_loss; loss includes user prompt.")
+    print("         Output quality will be worse. Upgrade TRL: pip install -U trl")
 
 # Newer TRL (>= 0.13) prefers processing_class over the older tokenizer kwarg.
-# Try processing_class first; fall back for older versions.
 try:
     trainer = SFTTrainer(
         model=model,
