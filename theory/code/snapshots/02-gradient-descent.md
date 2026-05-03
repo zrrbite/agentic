@@ -143,7 +143,7 @@ print(f"One numerical gradient took {elapsed:.2f}s")
 print(f"Gradient shapes: dW1 {grads[0][0].shape}, dW2 {grads[1][0].shape}, dW3 {grads[2][0].shape}")
 ```
 
-    One numerical gradient took 0.04s
+    One numerical gradient took 0.05s
     Gradient shapes: dW1 (16, 2), dW2 (16, 16), dW3 (2, 16)
 
 
@@ -259,7 +259,7 @@ plt.show()
 
     step  50/50: loss = 0.1625
     
-    Training took 2.1s
+    Training took 2.4s
 
 
 
