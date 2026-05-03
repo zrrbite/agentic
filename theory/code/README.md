@@ -32,6 +32,7 @@ If the math feels rusty (derivatives, chain rule, matrix calculus, cross-entropy
 | [`10-rag.ipynb`](10-rag.ipynb) | (side quest) | RAG over this repo's own theory docs: embed → retrieve → generate. **Needs `ANTHROPIC_API_KEY`** |
 | [`11-rag-hybrid-rerank.ipynb`](11-rag-hybrid-rerank.ipynb) | (side quest) | Upgrade 10's pipeline: BM25 + vector via reciprocal rank fusion + cross-encoder reranker |
 | [`12-rag-local.ipynb`](12-rag-local.ipynb) | (side quest) | Same RAG, **fully local** with Ollama. $0/query, runs offline, slower (~15-30s on CPU) |
+| [`13-rag-openrouter.ipynb`](13-rag-openrouter.ipynb) | (side quest) | Same RAG via **OpenRouter free tier** (Gemma 2, Llama 3, Mistral). $0, hosted, ~3s/query |
 
 ## Setup
 

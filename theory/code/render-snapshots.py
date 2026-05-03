@@ -23,6 +23,7 @@ SKIP_EXECUTE = {
     "10-rag.ipynb",                  # needs ANTHROPIC_API_KEY + sentence-transformers
     "11-rag-hybrid-rerank.ipynb",    # same — adds rank-bm25 + cross-encoder
     "12-rag-local.ipynb",            # needs Ollama running locally + a pulled model
+    "13-rag-openrouter.ipynb",       # needs OPENROUTER_API_KEY + sentence-transformers
 }
 import argparse
 import subprocess
