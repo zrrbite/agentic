@@ -348,7 +348,7 @@ print("**positional encodings** to X — sinusoidal (original paper), learned")
 print("(GPT-2), or rotary/RoPE (LLaMA, modern LLMs). See ../transformers.md.")
 ```
 
-    Max difference between out_shuf and out_orig[perm]: 4.44e-16
+    Max difference between out_shuf and out_orig[perm]: 2.22e-16
     (should be ~0 — confirms permutation-equivariance)
     
     Implication: attention alone treats 'the cat sat on the mat' and any
