@@ -60,6 +60,8 @@ print(f"\nfirst 200 chars:\n{text[:200]}")
 ```
 
     Downloading Tiny Shakespeare (~1MB)...
+
+
     length: 1,115,394 characters
     
     first 200 chars:
@@ -322,36 +324,36 @@ print(f"\nTotal training time: {time.time() - t0:.0f}s")
     Starting training. Initial uniform-random baseline loss: 4.174
 
 
-    step  200/2000  train 2.505  val 2.511   (18s elapsed)
+    step  200/2000  train 2.505  val 2.511   (21s elapsed)
 
 
-    step  400/2000  train 2.382  val 2.381   (37s elapsed)
+    step  400/2000  train 2.382  val 2.381   (42s elapsed)
 
 
-    step  600/2000  train 2.197  val 2.244   (56s elapsed)
+    step  600/2000  train 2.197  val 2.244   (62s elapsed)
 
 
-    step  800/2000  train 2.179  val 2.152   (74s elapsed)
+    step  800/2000  train 2.179  val 2.152   (83s elapsed)
 
 
-    step 1000/2000  train 2.035  val 2.072   (93s elapsed)
+    step 1000/2000  train 2.035  val 2.072   (104s elapsed)
 
 
-    step 1200/2000  train 1.971  val 2.018   (111s elapsed)
+    step 1200/2000  train 1.971  val 2.018   (124s elapsed)
 
 
-    step 1400/2000  train 1.826  val 1.960   (130s elapsed)
+    step 1400/2000  train 1.826  val 1.960   (145s elapsed)
 
 
-    step 1600/2000  train 1.831  val 1.934   (148s elapsed)
+    step 1600/2000  train 1.831  val 1.934   (165s elapsed)
 
 
-    step 1800/2000  train 1.782  val 1.904   (166s elapsed)
+    step 1800/2000  train 1.782  val 1.904   (186s elapsed)
 
 
-    step 2000/2000  train 1.736  val 1.869   (184s elapsed)
+    step 2000/2000  train 1.736  val 1.869   (207s elapsed)
     
-    Total training time: 184s
+    Total training time: 207s
 
 
 

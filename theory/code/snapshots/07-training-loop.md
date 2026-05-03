@@ -273,7 +273,7 @@ history = train(model, total_steps=1000)
 
     step 1000/1000  lr 3.00e-05  train 2.226  val 2.259  ||g|| 0.51  (saved checkpoint)
     
-    Best val loss: 2.259   total time: 94s
+    Best val loss: 2.259   total time: 106s
 
 
 ## What the loop produced

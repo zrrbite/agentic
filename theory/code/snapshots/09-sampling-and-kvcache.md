@@ -515,18 +515,18 @@ plt.legend(); plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-    n=  4: no-cache    5.1 ms,  cached    5.4 ms,  speedup 0.94x
-    n=  8: no-cache   11.0 ms,  cached    9.8 ms,  speedup 1.13x
-    n= 16: no-cache   22.6 ms,  cached   18.5 ms,  speedup 1.23x
+    n=  4: no-cache    4.7 ms,  cached    4.9 ms,  speedup 0.96x
+    n=  8: no-cache    9.6 ms,  cached    8.7 ms,  speedup 1.10x
+    n= 16: no-cache   20.0 ms,  cached   16.6 ms,  speedup 1.20x
 
 
-    n= 32: no-cache   50.9 ms,  cached   36.8 ms,  speedup 1.38x
+    n= 32: no-cache   45.2 ms,  cached   32.0 ms,  speedup 1.41x
 
 
-    n= 48: no-cache   82.2 ms,  cached   54.4 ms,  speedup 1.51x
+    n= 48: no-cache   74.4 ms,  cached   48.8 ms,  speedup 1.52x
 
 
-    n= 60: no-cache  108.0 ms,  cached   69.0 ms,  speedup 1.57x
+    n= 60: no-cache  100.5 ms,  cached   59.2 ms,  speedup 1.70x
 
 
 
@@ -572,9 +572,9 @@ print(f"  -> per-prompt-token cost: {t_prefill*1e3/idx.size(1):.2f} ms")
 print(f"Decode (one new token, with cache):                       {t_decode*1e3:.2f} ms")
 ```
 
-    Prefill (whole 60-token prompt, single forward): 2.67 ms total
+    Prefill (whole 60-token prompt, single forward): 2.58 ms total
       -> per-prompt-token cost: 0.04 ms
-    Decode (one new token, with cache):                       1.47 ms
+    Decode (one new token, with cache):                       1.33 ms
 
 
 ## What's next
