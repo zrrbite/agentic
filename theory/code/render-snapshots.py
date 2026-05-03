@@ -22,6 +22,7 @@ SKIP_EXECUTE = {
     "08-sft-and-dpo.ipynb",          # needs Colab GPU; can't run on CPU or in CI
     "10-rag.ipynb",                  # needs ANTHROPIC_API_KEY + sentence-transformers
     "11-rag-hybrid-rerank.ipynb",    # same — adds rank-bm25 + cross-encoder
+    "12-rag-local.ipynb",            # needs Ollama running locally + a pulled model
 }
 import argparse
 import subprocess
