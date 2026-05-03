@@ -29,6 +29,7 @@ If the math feels rusty (derivatives, chain rule, matrix calculus, cross-entropy
 | [`07-training-loop.ipynb`](07-training-loop.ipynb) | [`../llm-training.md`](../llm-training.md) | Production-style training loop: LR schedule (warmup + cosine), gradient clipping, val tracking, checkpointing |
 | [`08-sft-and-dpo.ipynb`](08-sft-and-dpo.ipynb) | [`../llm-training.md`](../llm-training.md) | **Colab GPU only.** Fine-tune SmolLM-360M with QLoRA + SFT to answer in haiku |
 | [`09-sampling-and-kvcache.ipynb`](09-sampling-and-kvcache.ipynb) | [`../inference.md`](../inference.md) | Sampling strategies (greedy, temp, top-k, top-p) + KV cache from scratch + benchmark |
+| [`10-rag.ipynb`](10-rag.ipynb) | (side quest) | RAG over this repo's own theory docs: embed → retrieve → generate with Claude Sonnet 4.6. **Needs `ANTHROPIC_API_KEY`** |
 
 ## Setup
 

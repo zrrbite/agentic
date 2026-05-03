@@ -20,6 +20,7 @@ Usage:
 # These will be rendered with whatever cell outputs are already in the file.
 SKIP_EXECUTE = {
     "08-sft-and-dpo.ipynb",   # needs Colab GPU; can't run on CPU or in CI
+    "10-rag.ipynb",           # needs ANTHROPIC_API_KEY + sentence-transformers; CI has neither
 }
 import argparse
 import subprocess
