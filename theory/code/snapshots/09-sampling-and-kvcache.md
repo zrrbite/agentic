@@ -207,6 +207,8 @@ for T in [0.3, 0.7, 1.0, 1.5]:
 ```
 
     === T=0.3 ===
+
+
     
     And mand the the so the the the seat the the ane the the
     The the that the that t
@@ -221,6 +223,8 @@ for T in [0.3, 0.7, 1.0, 1.5]:
     And hit be mye thifors bererof he thee sha
     
     === T=1.0 ===
+
+
     
     At 's mat cos: lorok latt'e y Saseres
     Ane hit be mye tamfors ber bof haksweem, f
@@ -299,6 +303,8 @@ for cfg in [
 ```
 
     === {'T': 1.0, 'top_k': 10} ===
+
+
     
     At dil tho meno thon heat'e mansser herou hit be myes
     Anor stout bof han weer, f
@@ -311,6 +317,8 @@ for cfg in [
     Ang wat me rofar whatem, f
     
     === {'T': 0.8, 'top_k': 40, 'top_p': 0.95} ===
+
+
     
     At dil tho meno orde lattseal waser hem fotheace mee thif wit me bead
     We ween, f
@@ -513,25 +521,23 @@ plt.legend(); plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-    n=  4: no-cache    5.6 ms,  cached    6.0 ms,  speedup 0.93x
-    n=  8: no-cache   12.0 ms,  cached   11.6 ms,  speedup 1.03x
+    n=  4: no-cache    3.7 ms,  cached    3.6 ms,  speedup 1.03x
+    n=  8: no-cache    7.1 ms,  cached    6.6 ms,  speedup 1.08x
+    n= 16: no-cache   15.0 ms,  cached   12.5 ms,  speedup 1.20x
 
 
-    n= 16: no-cache   24.5 ms,  cached   21.4 ms,  speedup 1.14x
+    n= 32: no-cache   33.4 ms,  cached   25.4 ms,  speedup 1.31x
 
 
-    n= 32: no-cache   52.7 ms,  cached   39.0 ms,  speedup 1.35x
+    n= 48: no-cache   56.2 ms,  cached   36.3 ms,  speedup 1.55x
 
 
-    n= 48: no-cache   85.9 ms,  cached   57.9 ms,  speedup 1.48x
-
-
-    n= 60: no-cache  115.0 ms,  cached   71.5 ms,  speedup 1.61x
+    n= 60: no-cache   75.1 ms,  cached   45.6 ms,  speedup 1.65x
 
 
 
     
-![png](09-sampling-and-kvcache_files/09-sampling-and-kvcache_19_5.png)
+![png](09-sampling-and-kvcache_files/09-sampling-and-kvcache_19_4.png)
     
 
 
@@ -572,9 +578,9 @@ print(f"  -> per-prompt-token cost: {t_prefill*1e3/idx.size(1):.2f} ms")
 print(f"Decode (one new token, with cache):                       {t_decode*1e3:.2f} ms")
 ```
 
-    Prefill (whole 60-token prompt, single forward): 2.88 ms total
-      -> per-prompt-token cost: 0.05 ms
-    Decode (one new token, with cache):                       1.53 ms
+    Prefill (whole 60-token prompt, single forward): 1.91 ms total
+      -> per-prompt-token cost: 0.03 ms
+    Decode (one new token, with cache):                       1.01 ms
 
 
 ## What's next
