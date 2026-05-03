@@ -19,8 +19,9 @@ Usage:
 # Notebooks that should be converted but NOT executed (e.g. need a GPU).
 # These will be rendered with whatever cell outputs are already in the file.
 SKIP_EXECUTE = {
-    "08-sft-and-dpo.ipynb",   # needs Colab GPU; can't run on CPU or in CI
-    "10-rag.ipynb",           # needs ANTHROPIC_API_KEY + sentence-transformers; CI has neither
+    "08-sft-and-dpo.ipynb",          # needs Colab GPU; can't run on CPU or in CI
+    "10-rag.ipynb",                  # needs ANTHROPIC_API_KEY + sentence-transformers
+    "11-rag-hybrid-rerank.ipynb",    # same — adds rank-bm25 + cross-encoder
 }
 import argparse
 import subprocess
