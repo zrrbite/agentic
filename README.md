@@ -10,7 +10,7 @@ A rough-notes knowledge base for exploring what **Claude Code** (and agentic cod
 |---|---|
 | [`claude-code/`](claude-code/) | Claude Code's extensibility surface — MCP, plugins, skills, subagents, hooks, SDK, settings, IDE integrations |
 | [`integrations/`](integrations/) | External tools that talk to Claude Code — OpenClaw, n8n, LangGraph, CrewAI, Letta |
-| [`alternatives/`](alternatives/) | Competing agentic coding tools — OpenCode, Cursor, Aider, Cline, Codex, Continue, Windsurf, Zed, Goose |
+| [`alternatives/`](alternatives/) | Competing agentic coding tools — OpenCode, Cursor, Aider, Cline, Codex, Continue, Windsurf, Zed, Goose, GitHub Copilot |
 | [`sources/`](sources/) | Where to find more — awesome-lists, plugin marketplaces, skill repos, MCP registries |
 | [`theory/`](theory/) | How LLMs actually work — neural networks, gradient descent, transformers, training (RLHF/DPO), inference. Beginner + advanced sections per file |
 | [`experiments/`](experiments/) | Hands-on "I tried X" notes (dated files, added as you go) |
