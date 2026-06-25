@@ -5,24 +5,27 @@ applyTo: "**/*.{ts,tsx,mts,cts}"
 
 # TypeScript instructions
 
-Applied automatically to TypeScript files.
+Applied automatically to TypeScript files. Defaults below assume a modern
+pnpm + Vite + Vitest toolchain; adjust per project.
 
 ## Types
-- **`strict` mode assumed.** No implicit `any`; type function boundaries explicitly.
+- **`strict` mode on.** No implicit `any`; type function boundaries explicitly.
 - Prefer precise types and discriminated unions over `any`/`unknown` casts.
 - Avoid non-null assertions (`!`) unless provably safe and commented.
 
 ## Style
-- Match the existing module system (ESM vs CJS) and import ordering.
+- Match the existing module system (ESM preferred) and import ordering.
 - Prefer `const`; immutable data where practical. Async/await over raw promises.
 - No unused exports or dead code.
+- Formatting/lint owned by **Prettier + ESLint** — do not fight the configs.
 
 ## Errors & validation
-- Validate external input at the boundary ([zod / io-ts — set yours]); trust
-  internal types thereafter.
+- Validate external input at the boundary with **zod** (or the project's existing
+  validator, e.g. Effect Schema); trust internal types thereafter.
 - Throw `Error` subclasses, not strings.
 
 ## Build & test
-- Tooling: **[tsc / esbuild / vite — set yours]**, package manager **[pnpm/npm]**.
-- Add/extend tests in **[vitest / jest — set yours]** for new behavior.
-- Run `[lint command]` and `[typecheck command]` before considering work done.
+- Package manager: **pnpm**. Build/bundle: **Vite** (libs: `tsc` for `.d.ts`).
+- Type-check: `pnpm exec tsc --noEmit`. Lint: `pnpm lint`.
+- Tests: **Vitest**, run via `pnpm test`. Add/extend tests for new behavior.
+- Run type-check, lint, and tests before considering work done.
