@@ -9,6 +9,7 @@ bracketed placeholders.
 
 | Path | Purpose |
 |---|---|
+| [`INSTALL.md`](INSTALL.md) | How to install the files, switch on the settings, and use each piece |
 | [`TOKEN-SAVING-PLAYBOOK.md`](TOKEN-SAVING-PLAYBOOK.md) | The strategy: premium-request economics + the levers that cut spend |
 | [`AWESOME-COPILOT-PULL-LIST.md`](AWESOME-COPILOT-PULL-LIST.md) | Curated list of community files/plugins to pull from `github/awesome-copilot` |
 | `.github/copilot-instructions.md` | Repo-wide context auto-loaded by Copilot Chat (fill in build/test/style) |
@@ -19,11 +20,15 @@ bracketed placeholders.
 
 ## Install
 
-- **Project-level (shared):** copy `.github/` into your repo root. Agents,
-  prompts, and instructions are picked up automatically by VS Code / Visual Studio.
-- **User-level (personal, all repos):** place agent files in `~/.copilot/agents/`.
-- **Chat modes → agents:** the `.chatmode.md` format is being superseded by
-  `.agent.md`; rename to migrate. Kept here for older clients.
+Full step-by-step in [`INSTALL.md`](INSTALL.md) (file placement, the VS Code
+settings to switch on, how to invoke each piece, and verification). In brief:
+
+- **Project-level (shared):** copy `.github/` into your repo root; move chat modes
+  to `.github/chatmodes/`. Picked up by VS Code / Visual Studio.
+- **User-level (personal, all repos):** agent files in `~/.copilot/agents/`;
+  prompts/instructions/chat modes via VS Code *Configure* → User profile.
+- **Switch on:** `useInstructionFiles` + `chat.promptFiles`, and **Auto** model
+  selection for the 0.9× discount — details in `INSTALL.md` §2.
 
 ## First moves to actually save requests
 
