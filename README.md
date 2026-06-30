@@ -11,6 +11,7 @@ A rough-notes knowledge base for exploring what **Claude Code** (and agentic cod
 | [`claude-code/`](claude-code/) | Claude Code's extensibility surface — MCP, plugins, skills, subagents, hooks, SDK, settings, IDE integrations |
 | [`integrations/`](integrations/) | External tools that talk to Claude Code — OpenClaw, n8n, LangGraph, CrewAI, Letta |
 | [`alternatives/`](alternatives/) | Competing agentic coding tools — OpenCode, Cursor, Aider, Cline, Codex, Continue, Windsurf, Zed, Goose, GitHub Copilot |
+| [`copilot-starter-kit/`](copilot-starter-kit/) | Drop-in GitHub Copilot customizations (instructions, prompts, agents) tuned to cut premium-request spend |
 | [`sources/`](sources/) | Where to find more — awesome-lists, plugin marketplaces, skill repos, MCP registries |
 | [`theory/`](theory/) | How LLMs actually work — neural networks, gradient descent, transformers, training (RLHF/DPO), inference. Beginner + advanced sections per file |
 | [`experiments/`](experiments/) | Hands-on "I tried X" notes (dated files, added as you go) |
@@ -20,6 +21,7 @@ A rough-notes knowledge base for exploring what **Claude Code** (and agentic cod
 - New to Claude Code extension points? → [`claude-code/README.md`](claude-code/README.md)
 - Looking for prebuilt skills/plugins? → [`sources/skill-repos.md`](sources/skill-repos.md)
 - Comparing tools? → [`alternatives/README.md`](alternatives/README.md)
+- Using GitHub Copilot at work and want to cut spend? → [`copilot-starter-kit/`](copilot-starter-kit/) (start with [`INSTALL.md`](copilot-starter-kit/INSTALL.md))
 - Want to understand how LLMs work under the hood? → [`theory/README.md`](theory/README.md)
 - Want to read the LLM notebooks on your phone (no install)? → [`theory/code/snapshots/`](theory/code/snapshots/)
 
