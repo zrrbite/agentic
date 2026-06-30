@@ -92,14 +92,16 @@ Rust file applies to `**/*.rs`). Also free. Nothing to invoke.
 In Chat, type `/` then the file name, e.g.:
 
 ```
+/plan            # plan only, no edits — cheap "think first" step
 /review-diff
 /add-tests
 /fix-failing-test
 /explain-code
-/commit-msg
-/doc-comment
 /debug
 /refactor
+/commit-msg
+/pr-description
+/doc-comment
 ```
 
 Or *Command Palette → Chat: Run Prompt*. Each prompt declares its mode

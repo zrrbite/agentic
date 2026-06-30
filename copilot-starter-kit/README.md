@@ -11,10 +11,12 @@ bracketed placeholders.
 |---|---|
 | [`INSTALL.md`](INSTALL.md) | How to install the files, switch on the settings, and use each piece |
 | [`TOKEN-SAVING-PLAYBOOK.md`](TOKEN-SAVING-PLAYBOOK.md) | The strategy: premium-request economics + the levers that cut spend |
+| [`MODEL-ROUTING-CHEAT-CARD.md`](MODEL-ROUTING-CHEAT-CARD.md) | One-screen task-type → model-tier decision table (the biggest spend lever) |
+| [`SPEND-AUDIT.md`](SPEND-AUDIT.md) | Weekly 5-minute self-audit: read the usage dashboard, find and fix leaks |
 | [`AWESOME-COPILOT-PULL-LIST.md`](AWESOME-COPILOT-PULL-LIST.md) | Curated list of community files/plugins to pull from `github/awesome-copilot` |
 | `.github/copilot-instructions.md` | Repo-wide context auto-loaded by Copilot Chat (fill in build/test/style) |
 | `.github/instructions/*.instructions.md` | Path-scoped coding standards (C/C++, Python, Rust, TypeScript) applied by file glob |
-| `.github/prompts/*.prompt.md` | Reusable slash-command tasks (add-tests, refactor, review-diff, explain-code, fix-failing-test, commit-msg, doc-comment, debug) |
+| `.github/prompts/*.prompt.md` | Reusable slash-command tasks (plan, add-tests, refactor, review-diff, explain-code, fix-failing-test, debug, commit-msg, pr-description, doc-comment) |
 | `.github/agents/*.agent.md` | Custom agents (code-reviewer, cpp-modernizer, test-author, security-reviewer, dependency-auditor, migration-helper) |
 | `chatmodes/confirm-first.chatmode.md` | Legacy chat-mode persona that confirms before finishing |
 
