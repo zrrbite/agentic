@@ -1,19 +1,20 @@
 # Copilot starter kit
 
 A drop-in set of GitHub Copilot customizations tuned to **save premium requests**
-and standardize behavior across **C, C++, and TypeScript** projects. Copy the
-pieces you want into a repo (or your user profile) and fill in the bracketed
-placeholders.
+and standardize behavior across **C, C++, Python, Rust, and TypeScript** projects.
+Copy the pieces you want into a repo (or your user profile) and fill in the
+bracketed placeholders.
 
 ## What's here
 
 | Path | Purpose |
 |---|---|
 | [`TOKEN-SAVING-PLAYBOOK.md`](TOKEN-SAVING-PLAYBOOK.md) | The strategy: premium-request economics + the levers that cut spend |
+| [`AWESOME-COPILOT-PULL-LIST.md`](AWESOME-COPILOT-PULL-LIST.md) | Curated list of community files/plugins to pull from `github/awesome-copilot` |
 | `.github/copilot-instructions.md` | Repo-wide context auto-loaded by Copilot Chat (fill in build/test/style) |
-| `.github/instructions/*.instructions.md` | Path-scoped coding standards (C/C++, TypeScript) applied by file glob |
-| `.github/prompts/*.prompt.md` | Reusable slash-command tasks (add-tests, refactor, review-diff) |
-| `.github/agents/*.agent.md` | Custom agents (code-reviewer, cpp-modernizer, test-author) |
+| `.github/instructions/*.instructions.md` | Path-scoped coding standards (C/C++, Python, Rust, TypeScript) applied by file glob |
+| `.github/prompts/*.prompt.md` | Reusable slash-command tasks (add-tests, refactor, review-diff, explain-code, fix-failing-test, commit-msg, doc-comment, debug) |
+| `.github/agents/*.agent.md` | Custom agents (code-reviewer, cpp-modernizer, test-author, security-reviewer, dependency-auditor, migration-helper) |
 | `chatmodes/confirm-first.chatmode.md` | Legacy chat-mode persona that confirms before finishing |
 
 ## Install
