@@ -10,6 +10,7 @@ bracketed placeholders.
 | Path | Purpose |
 |---|---|
 | [`INSTALL.md`](INSTALL.md) | How to install the files, switch on the settings, and use each piece |
+| [`WORKFLOW-EXAMPLE.md`](WORKFLOW-EXAMPLE.md) | One task end-to-end — every piece together, with the literal prompts and model tiers |
 | [`TOKEN-SAVING-PLAYBOOK.md`](TOKEN-SAVING-PLAYBOOK.md) | The strategy: premium-request economics + the levers that cut spend |
 | [`MODEL-ROUTING-CHEAT-CARD.md`](MODEL-ROUTING-CHEAT-CARD.md) | One-screen task-type → model-tier decision table (the biggest spend lever) |
 | [`SPEND-AUDIT.md`](SPEND-AUDIT.md) | Weekly 5-minute self-audit: read the usage dashboard, find and fix leaks |
