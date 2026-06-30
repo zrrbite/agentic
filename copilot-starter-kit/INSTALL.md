@@ -121,10 +121,20 @@ dependency-auditor  # native-tool dependency audit (pip-audit/cargo audit/pnpm a
 migration-helper    # plan-once, apply-uniformly mechanical migrations
 ```
 
-### Chat mode (`confirm-first.chatmode.md`)
-Select **confirm-first** from the chat mode dropdown for any non-trivial agent task.
-It confirms the plan before editing and pauses before declaring done — which is how
-you avoid paying for corrective re-prompts.
+### Chat modes / personas (`*.chatmode.md`)
+Pick one from the chat mode dropdown in the Chat view:
+
+```
+confirm-first    # confirms the plan before editing, pauses before "done" — avoids re-prompts
+terse-senior     # answer-first senior engineer, minimal ceremony — the daily driver
+caveman          # ultra-terse, no preamble; cuts scan time and re-prompts
+savage-reviewer  # brutally direct code review, zero fluff
+```
+
+The spend angle is the same for all: a blunt, complete, scannable answer means
+fewer corrective round-trips. `confirm-first` and `savage-reviewer` are
+task-specific (planning, review); `terse-senior` / `caveman` are general drivers —
+pick by taste.
 
 ---
 

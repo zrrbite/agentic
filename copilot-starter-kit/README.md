@@ -18,7 +18,7 @@ bracketed placeholders.
 | `.github/instructions/*.instructions.md` | Path-scoped coding standards (C/C++, Python, Rust, TypeScript) applied by file glob |
 | `.github/prompts/*.prompt.md` | Reusable slash-command tasks (plan, add-tests, refactor, review-diff, explain-code, fix-failing-test, debug, commit-msg, pr-description, doc-comment) |
 | `.github/agents/*.agent.md` | Custom agents (code-reviewer, cpp-modernizer, test-author, security-reviewer, dependency-auditor, migration-helper) |
-| `chatmodes/confirm-first.chatmode.md` | Legacy chat-mode persona that confirms before finishing |
+| `chatmodes/*.chatmode.md` | Chat-mode personas: confirm-first (confirms before finishing), terse-senior, caveman, savage-reviewer |
 
 ## Install
 
